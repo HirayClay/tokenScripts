@@ -1,0 +1,226 @@
+<?xml version="1.0" ?>
+<resources>
+    <!-- Gradient definitions - Note: Android doesn't support gradients in colors.xml natively -->
+    <!-- Gradient: gray_600 -> 500 (90deg) -->
+    <color name="gradient_gray_600 -&gt; 500 (90deg)">#FF000000</color>
+    <!-- Gradient: gray_700 -> 600 (45deg) -->
+    <color name="gradient_gray_700 -&gt; 600 (45deg)">#FF000000</color>
+    <!-- Gradient: gray_800 -> 600 (45deg) -->
+    <color name="gradient_gray_800 -&gt; 600 (45deg)">#FF000000</color>
+    <!-- Gradient: gray_800 -> 600 (90deg) -->
+    <color name="gradient_gray_800 -&gt; 600 (90deg)">#FF000000</color>
+    <!-- Gradient: gray_800 -> 700 (26.5deg) -->
+    <color name="gradient_gray_800 -&gt; 700 (26.5deg)">#FF000000</color>
+    <!-- Gradient: gray_900 -> 600 (45deg) -->
+    <color name="gradient_gray_900 -&gt; 600 (45deg)">#FF000000</color>
+    <!-- Gradient: gray_900 -> 700 (45deg) -->
+    <color name="gradient_gray_900 -&gt; 700 (45deg)">#FF000000</color>
+    <!-- Gradient: gray_50 -> white (180deg) -->
+    <color name="gradient_gray_50 -&gt; white (180deg)">#FF000000</color>
+    <!-- Gradient: gray_100 -> white (180deg) -->
+    <color name="gradient_gray_100 -&gt; white (180deg)">#FF000000</color>
+    <!-- Gradient: gray_100 -> 25 (180deg) -->
+    <color name="gradient_gray_100 -&gt; 25 (180deg)">#FF000000</color>
+    <!-- Gradient: gray_100 -> 50 (180deg) -->
+    <color name="gradient_gray_100 -&gt; 50 (180deg)">#FF000000</color>
+    <!-- Gradient: gray_200 -> 25 (180deg) -->
+    <color name="gradient_gray_200 -&gt; 25 (180deg)">#FF000000</color>
+    <!-- Gradient: gray_200 -> 50 (180deg) -->
+    <color name="gradient_gray_200 -&gt; 50 (180deg)">#FF000000</color>
+    <!-- Gradient: gray_200 -> 100 (180deg) -->
+    <color name="gradient_gray_200 -&gt; 100 (180deg)">#FF000000</color>
+    <!-- Gradient: brand_600 -> 500 (90deg) -->
+    <color name="gradient_brand_600 -&gt; 500 (90deg)">#FF000000</color>
+    <!-- Gradient: brand_700 -> 600 (45deg) -->
+    <color name="gradient_brand_700 -&gt; 600 (45deg)">#FF000000</color>
+    <!-- Gradient: brand_800 -> 600 (45deg) -->
+    <color name="gradient_brand_800 -&gt; 600 (45deg)">#FF000000</color>
+    <!-- Gradient: brand_800 -> 600 (90deg) -->
+    <color name="gradient_brand_800 -&gt; 600 (90deg)">#FF000000</color>
+    <!-- Gradient: brand_800 -> 700 (26.5deg) -->
+    <color name="gradient_brand_800 -&gt; 700 (26.5deg)">#FF000000</color>
+    <!-- Gradient: brand_900 -> 600 (45deg) -->
+    <color name="gradient_brand_900 -&gt; 600 (45deg)">#FF000000</color>
+    <!-- Gradient: brand_900 -> 700 (45deg) -->
+    <color name="gradient_brand_900 -&gt; 700 (45deg)">#FF000000</color>
+    <!-- Gradient: linear_10 -->
+    <color name="gradient_linear_10">#FF000000</color>
+    <!-- Gradient: linear_11 -->
+    <color name="gradient_linear_11">#FF000000</color>
+    <!-- Gradient: linear_12 -->
+    <color name="gradient_linear_12">#FF000000</color>
+    <!-- Gradient: linear_13 -->
+    <color name="gradient_linear_13">#FF000000</color>
+    <!-- Gradient: linear_14 -->
+    <color name="gradient_linear_14">#FF000000</color>
+    <!-- Gradient: linear_15 -->
+    <color name="gradient_linear_15">#FF000000</color>
+    <!-- Gradient: linear_16 -->
+    <color name="gradient_linear_16">#FF000000</color>
+    <!-- Gradient: linear_17 -->
+    <color name="gradient_linear_17">#FF000000</color>
+    <!-- Gradient: linear_18 -->
+    <color name="gradient_linear_18">#FF000000</color>
+    <!-- Gradient: linear_19 -->
+    <color name="gradient_linear_19">#FF000000</color>
+    <!-- Gradient: linear_20 -->
+    <color name="gradient_linear_20">#FF000000</color>
+    <!-- Gradient: linear_21 -->
+    <color name="gradient_linear_21">#FF000000</color>
+    <!-- Gradient: linear_22 -->
+    <color name="gradient_linear_22">#FF000000</color>
+    <!-- Gradient: linear_24 -->
+    <color name="gradient_linear_24">#FF000000</color>
+    <!-- Gradient: linear_25 -->
+    <color name="gradient_linear_25">#FF000000</color>
+    <!-- Gradient: linear_26 -->
+    <color name="gradient_linear_26">#FF000000</color>
+    <!-- Gradient: linear_27 -->
+    <color name="gradient_linear_27">#FF000000</color>
+    <!-- Gradient: linear_29 -->
+    <color name="gradient_linear_29">#FF000000</color>
+    <!-- Gradient: linear_30 -->
+    <color name="gradient_linear_30">#FF000000</color>
+    <!-- Gradient: linear_31 -->
+    <color name="gradient_linear_31">#FF000000</color>
+    <!-- Gradient: linear_32 -->
+    <color name="gradient_linear_32">#FF000000</color>
+    <!-- Gradient: linear_33 -->
+    <color name="gradient_linear_33">#FF000000</color>
+    <!-- Gradient: linear_34 -->
+    <color name="gradient_linear_34">#FF000000</color>
+    <!-- Gradient: linear_35 -->
+    <color name="gradient_linear_35">#FF000000</color>
+    <!-- Gradient: linear_36 -->
+    <color name="gradient_linear_36">#FF000000</color>
+    <!-- Gradient: linear_37 -->
+    <color name="gradient_linear_37">#FF000000</color>
+    <!-- Gradient: linear_38 -->
+    <color name="gradient_linear_38">#FF000000</color>
+    <!-- Gradient: linear_39 -->
+    <color name="gradient_linear_39">#FF000000</color>
+    <!-- Gradient: linear_40 -->
+    <color name="gradient_linear_40">#FF000000</color>
+    <!-- Gradient: linear_41 -->
+    <color name="gradient_linear_41">#FF000000</color>
+    <!-- Gradient: linear_42 -->
+    <color name="gradient_linear_42">#FF000000</color>
+    <!-- Gradient: linear_43 -->
+    <color name="gradient_linear_43">#FF000000</color>
+    <!-- Gradient: linear_44 -->
+    <color name="gradient_linear_44">#FF000000</color>
+    <!-- Gradient: linear_45 -->
+    <color name="gradient_linear_45">#FF000000</color>
+    <!-- Gradient: linear_46 -->
+    <color name="gradient_linear_46">#FF000000</color>
+    <!-- Gradient: linear_47 -->
+    <color name="gradient_linear_47">#FF000000</color>
+    <!-- Gradient: linear_48 -->
+    <color name="gradient_linear_48">#FF000000</color>
+    <!-- Gradient: linear_49 -->
+    <color name="gradient_linear_49">#FF000000</color>
+    <!-- Gradient: linear_50 -->
+    <color name="gradient_linear_50">#FF000000</color>
+    <!-- Gradient: linear_51 -->
+    <color name="gradient_linear_51">#FF000000</color>
+    <!-- Gradient: linear_52 -->
+    <color name="gradient_linear_52">#FF000000</color>
+    <!-- Gradient: linear_53 -->
+    <color name="gradient_linear_53">#FF000000</color>
+    <!-- Gradient: linear_54 -->
+    <color name="gradient_linear_54">#FF000000</color>
+    <!-- Gradient: linear_55 -->
+    <color name="gradient_linear_55">#FF000000</color>
+    <!-- Gradient: linear_56 -->
+    <color name="gradient_linear_56">#FF000000</color>
+    <!-- Gradient: linear_57 -->
+    <color name="gradient_linear_57">#FF000000</color>
+    <!-- Gradient: linear_58 -->
+    <color name="gradient_linear_58">#FF000000</color>
+    <!-- Gradient: linear_59 -->
+    <color name="gradient_linear_59">#FF000000</color>
+    <!-- Gradient: linear_60 -->
+    <color name="gradient_linear_60">#FF000000</color>
+    <!-- Gradient: linear_61 -->
+    <color name="gradient_linear_61">#FF000000</color>
+    <!-- Gradient: linear_62 -->
+    <color name="gradient_linear_62">#FF000000</color>
+    <!-- Gradient: linear_63 -->
+    <color name="gradient_linear_63">#FF000000</color>
+    <!-- Gradient: linear_64 -->
+    <color name="gradient_linear_64">#FF000000</color>
+    <!-- Gradient: linear_65 -->
+    <color name="gradient_linear_65">#FF000000</color>
+    <!-- Gradient: linear_66 -->
+    <color name="gradient_linear_66">#FF000000</color>
+    <!-- Gradient: linear_67 -->
+    <color name="gradient_linear_67">#FF000000</color>
+    <!-- Gradient: linear_68 -->
+    <color name="gradient_linear_68">#FF000000</color>
+    <!-- Gradient: linear_69 -->
+    <color name="gradient_linear_69">#FF000000</color>
+    <!-- Gradient: linear_70 -->
+    <color name="gradient_linear_70">#FF000000</color>
+    <!-- Gradient: linear_71 -->
+    <color name="gradient_linear_71">#FF000000</color>
+    <!-- Gradient: linear_72 -->
+    <color name="gradient_linear_72">#FF000000</color>
+    <!-- Gradient: linear_73 -->
+    <color name="gradient_linear_73">#FF000000</color>
+    <!-- Gradient: linear_74 -->
+    <color name="gradient_linear_74">#FF000000</color>
+    <!-- Gradient: linear_75 -->
+    <color name="gradient_linear_75">#FF000000</color>
+    <!-- Gradient: linear_76 -->
+    <color name="gradient_linear_76">#FF000000</color>
+    <!-- Gradient: linear_77 -->
+    <color name="gradient_linear_77">#FF000000</color>
+    <!-- Gradient: linear_78 -->
+    <color name="gradient_linear_78">#FF000000</color>
+    <!-- Gradient: linear_79 -->
+    <color name="gradient_linear_79">#FF000000</color>
+    <!-- Gradient: linear_80 -->
+    <color name="gradient_linear_80">#FF000000</color>
+    <!-- Gradient: linear_81 -->
+    <color name="gradient_linear_81">#FF000000</color>
+    <!-- Gradient: linear_82 -->
+    <color name="gradient_linear_82">#FF000000</color>
+    <!-- Gradient: linear_83 -->
+    <color name="gradient_linear_83">#FF000000</color>
+    <!-- Gradient: linear_84 -->
+    <color name="gradient_linear_84">#FF000000</color>
+    <!-- Gradient: linear_85 -->
+    <color name="gradient_linear_85">#FF000000</color>
+    <!-- Gradient: linear_86 -->
+    <color name="gradient_linear_86">#FF000000</color>
+    <!-- Gradient: linear_87 -->
+    <color name="gradient_linear_87">#FF000000</color>
+    <!-- Gradient: linear_88 -->
+    <color name="gradient_linear_88">#FF000000</color>
+    <!-- Gradient: linear_89 -->
+    <color name="gradient_linear_89">#FF000000</color>
+    <!-- Gradient: linear_90 -->
+    <color name="gradient_linear_90">#FF000000</color>
+    <!-- Gradient: linear_91 -->
+    <color name="gradient_linear_91">#FF000000</color>
+    <!-- Gradient: linear_96 -->
+    <color name="gradient_linear_96">#FF000000</color>
+    <!-- Gradient: linear_01 -->
+    <color name="gradient_linear_01">#FF000000</color>
+    <!-- Gradient: linear_02 -->
+    <color name="gradient_linear_02">#FF000000</color>
+    <!-- Gradient: linear_03 -->
+    <color name="gradient_linear_03">#FF000000</color>
+    <!-- Gradient: linear_04 -->
+    <color name="gradient_linear_04">#FF000000</color>
+    <!-- Gradient: linear_05 -->
+    <color name="gradient_linear_05">#FF000000</color>
+    <!-- Gradient: linear_06 -->
+    <color name="gradient_linear_06">#FF000000</color>
+    <!-- Gradient: linear_07 -->
+    <color name="gradient_linear_07">#FF000000</color>
+    <!-- Gradient: linear_08 -->
+    <color name="gradient_linear_08">#FF000000</color>
+    <!-- Gradient: linear_09 -->
+    <color name="gradient_linear_09">#FF000000</color>
+</resources>
