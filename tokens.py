@@ -84,6 +84,67 @@ def format_xml_name(name_parts: List[str]) -> str:
     return '_'.join(cleaned_parts)
 
 
+def extract_content_between_spacing_and_bracket(input_string: str) -> str:
+    """
+    提取字符串中spacing字符前一个点号到最后一个左括号之间的内容
+    并将spacing后面的第一个点号替换成下划线，移除其他点号
+
+    例如: "primitives.mode 1.spacing.0 (0px)" -> "spacing_0"
+    例如: "primitives.mode 1.spacing.large.value (24px)" -> "spacing_largevalue"
+
+    Args:
+        input_string (str): 输入字符串
+
+    Returns:
+        str: 提取的内容，如果找不到则返回空字符串
+    """
+    # 找到最后一个左括号的位置
+    last_bracket_pos = input_string.rfind('(')
+    if last_bracket_pos == -1:
+        return ""
+
+    # 找到spacing字符的位置
+    spacing_pos = input_string.find('spacing')
+    if spacing_pos == -1:
+        return ""
+
+    # 找到spacing前一个点号的位置
+    # 从spacing位置向前查找点号
+    dot_before_spacing_pos = -1
+    for i in range(spacing_pos - 1, -1, -1):
+        if input_string[i] == '.':
+            dot_before_spacing_pos = i + 1  # 从点号后面一位开始
+            break
+
+    if dot_before_spacing_pos == -1:
+        return ""
+
+    # 提取内容 (从点号后一位到最后一个左括号前)
+    content = input_string[dot_before_spacing_pos:last_bracket_pos].strip()
+
+    # 将spacing后面的第一个点号替换成下划线，移除其他点号
+    spacing_index = content.find('spacing')
+    if spacing_index != -1:
+        # 找到spacing后面的内容
+        after_spacing = content[spacing_index + len('spacing'):]
+        # 如果spacing后面有内容
+        if after_spacing:
+            # 找到第一个点号
+            first_dot_pos = after_spacing.find('.')
+            if first_dot_pos != -1:
+                # 将第一个点号替换成下划线，移除其他点号
+                before_first_dot = after_spacing[:first_dot_pos]
+                after_first_dot = after_spacing[first_dot_pos + 1:].replace('.', '')
+                processed_after_spacing = before_first_dot + '_' + after_first_dot
+            else:
+                # 没有点号，保持原样
+                processed_after_spacing = after_spacing
+
+            content = 'spacing' + processed_after_spacing
+
+    return content
+
+
 def format_spacing_name(name_parts: List[str]) -> str:
     """格式化spacing尺寸名称，采用节点属性+父节点名"""
     if not name_parts:
@@ -201,6 +262,28 @@ def generate_dimens_xml(dimensions: Dict[str, int], output_path: str, file_name:
     # 按名称排序
     for name in sorted(dimensions.keys()):
         xml_content += f'    <dimen name="{name}">{dimensions[name]}dp</dimen>\n'
+
+    xml_content += '</resources>'
+
+    # 确保输出目录存在
+    os.makedirs(output_path, exist_ok=True)
+
+    # 写入文件
+    file_path = os.path.join(output_path, file_name)
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.write(xml_content)
+
+    print(f"Generated: {file_path}")
+
+
+def generate_semantic_dimens_xml(dimensions: Dict[str, int], output_path: str, file_name: str) -> None:
+    """生成Android dimens.xml文件"""
+    xml_content = '<?xml version="1.0" encoding="utf-8"?>\n'
+    xml_content += '<resources>\n'
+
+    # 按名称排序
+    for name in sorted(dimensions.keys()):
+        xml_content += f'    <dimen name="{name}">@dimen/{dimensions[name]}</dimen>\n'
 
     xml_content += '</resources>'
 
@@ -447,6 +530,17 @@ def print_summary(light_colors: Dict[str, str], dark_colors: Dict[str, str],
     print(f"Output directory: {output_dir}")
 
 
+def process_semantic_spacing(data: Dict[str, Any]):
+    semantic_dimens = {}
+    spacing_node = data['3. spacing']
+    for k, v in spacing_node.items():
+        spacing_name = k
+        reference_name = extract_content_between_spacing_and_bracket(v['value'][1:-1])
+        semantic_dimens[str.replace(spacing_name, "-", "_")] = reference_name
+
+    return semantic_dimens
+
+
 def main():
     # JSON文件路径
     json_file = "design-tokens.tokens(1).json"
@@ -483,15 +577,149 @@ def main():
 
     # 处理spacing尺寸
     dimensions = process_spacing_dimensions(data)
+    semantic_dimensions = process_semantic_spacing(data)
+    # 处理渐变
+    gradients = process_gradients(data)
 
     # 生成XML文件
     generate_xml_files(light_colors, dark_colors, output_dir)
     generate_semantic_xml_files(light_semantic, dark_semantic, output_dir)
     generate_dimens_xml(dimensions, os.path.join(output_dir, "values"), "dimens.xml")
+    generate_semantic_dimens_xml(semantic_dimensions, os.path.join(output_dir, "values"), "semantic_dimens.xml")
+    generate_gradient_xml_files(gradients, output_dir)
 
     # 打印摘要
     print_summary(light_colors, dark_colors, light_semantic, dark_semantic, output_dir)
     print(f"Spacing dimensions: {len(dimensions)}")
+    print(f"Gradients: {len(gradients)}")
+
+
+def is_gradient_node(node: Dict[str, Any]) -> bool:
+    """判断是否为渐变节点"""
+    return node.get('type') == 'custom-gradient' and 'value' in node
+
+
+def format_gradient_name(parent_name: str, node_name: str) -> str:
+    """格式化渐变名称，按照命名规则处理"""
+    # 处理类似 '600 -> 500 (90deg)' 的情况
+    if ' -> ' in node_name and '(' in node_name:
+        # 提取箭头前后的数字
+        parts = node_name.split(' -> ')
+        if len(parts) == 2:
+            start_num = parts[0].strip()
+            end_part = parts[1].split('(')[0].strip()  # 去掉度数部分
+            return f"{parent_name}_{start_num}_{end_part}"
+
+    # 其他情况直接拼接
+    # 清理名称，移除特殊字符
+    parent_clean = re.sub(r'[^a-zA-Z0-9]', '_', parent_name)
+    node_clean = re.sub(r'[^a-zA-Z0-9]', '_', node_name)
+
+    # 移除连续的下划线
+    parent_clean = re.sub(r'_+', '_', parent_clean).strip('_')
+    node_clean = re.sub(r'_+', '_', node_clean).strip('_')
+
+    return f"{parent_clean}_{node_clean}"
+
+
+def generate_android_gradient_xml(gradient_name: str, rotation: float, start_color: str, end_color: str) -> str:
+    """生成单个Android渐变XML内容"""
+    # 确保颜色值格式正确
+    if not start_color.startswith('#'):
+        start_color = f"#{start_color}"
+    if not end_color.startswith('#'):
+        end_color = f"#{end_color}"
+
+    # 处理8位颜色值（包含透明度）
+    if len(start_color) == 9:
+        start_color = start_color[:7]  # 去掉透明度
+    if len(end_color) == 9:
+        end_color = end_color[:7]  # 去掉透明度
+
+    xml_content = f'''<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:type="linear"
+        android:angle="{int(rotation)}"
+        android:startColor="{start_color}"
+        android:endColor="{end_color}" />
+</shape>'''
+
+    return xml_content
+
+
+def traverse_gradient_nodes(data: Dict[str, Any], path: List[str], gradients: Dict[str, Dict[str, Any]]) -> None:
+    """遍历渐变节点"""
+    for key, value in data.items():
+        current_path = path + [key]
+
+        if isinstance(value, dict):
+            if is_gradient_node(value):
+                # 这是一个渐变节点
+                gradient_value = value['value']
+                rotation = gradient_value.get('rotation', 0)
+                stops = gradient_value.get('stops', [])
+
+                # 确保有两个停止点
+                if len(stops) >= 2:
+                    start_color = stops[0]['color']
+                    end_color = stops[1]['color']
+
+                    # 生成XML名称
+                    if len(current_path) >= 2:
+                        parent_name = current_path[-2]  # 父节点名
+                        node_name = current_path[-1]  # 当前节点名
+                        xml_name = format_gradient_name(parent_name, node_name)
+                    else:
+                        xml_name = format_gradient_name('gradient', current_path[-1])
+
+                    gradients[xml_name] = {
+                        'rotation': rotation,
+                        'start_color': start_color,
+                        'end_color': end_color
+                    }
+
+                    print(f"Found gradient: {xml_name} - {start_color} -> {end_color} ({rotation}°)")
+            else:
+                # 继续递归
+                traverse_gradient_nodes(value, current_path, gradients)
+
+
+def process_gradients(data: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
+    """处理gradient模块，提取渐变"""
+    gradients = {}
+
+    if 'gradient' not in data:
+        print("Warning: 'gradient' module not found in JSON")
+        return gradients
+
+    print("Extracting gradients...")
+    traverse_gradient_nodes(data['gradient'], [], gradients)
+
+    return gradients
+
+
+def generate_gradient_xml_files(gradients: Dict[str, Dict[str, Any]], output_dir: str) -> None:
+    """生成渐变XML文件"""
+    gradient_dir = os.path.join(output_dir, "gradients")
+    os.makedirs(gradient_dir, exist_ok=True)
+
+    print(f"Generating gradient XML files in {gradient_dir}...")
+
+    for gradient_name, gradient_data in gradients.items():
+        xml_content = generate_android_gradient_xml(
+            gradient_name,
+            gradient_data['rotation'],
+            gradient_data['start_color'],
+            gradient_data['end_color']
+        )
+
+        file_path = os.path.join(gradient_dir, f"{gradient_name}.xml")
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(xml_content)
+
+        print(f"Generated: {file_path}")
 
 
 if __name__ == "__main__":
